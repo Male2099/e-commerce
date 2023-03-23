@@ -1,15 +1,7 @@
-<template>
-  <div class="home">
-    <h1>This is a Home page</h1>
-  </div>
-</template>
+<script setup>
+import Home from '../components/Home.vue'
+</script>
 
-<style>
-@media (min-width: 1024px) {
-  .about {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-  }
-}
-</style>
+<template >
+    <Home />
+</template>
