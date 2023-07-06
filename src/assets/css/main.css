@@ -1,1 +1,74 @@
-@import './base.css';
+/* @import "./base.css"; */
+:root {
+  --menu-active-color: #ff6900;
+  --nav-background: linear-gradient(120deg, #fccb90 0%, #d57eeb 100%);
+  --orange-background: #ffb937;
+  --purple-background:#4E2BB9;
+  --ctg-background:#4E2BB9;
+  --blood-red-background:#DD2471;
+
+  
+  --sky-background:#828EF9;
+
+  --search-active-border-color: 3px solid #c928f2;
+
+  --footer-background: #111111;
+
+  --hover-bgc-link-grey: #7b7b7b;
+  --subscribe-bgc: red;
+
+  --fixed-wdith: 1176px;
+  --fixed-width: 1176px;
+}
+
+
+.nav-background-linear-gradient {
+  background-image: var(--nav-background);
+}
+
+.orange-backgroundColor {
+  background-color: var(--orange-background);
+}
+
+.purple_background_color {
+  background-color: var(--purple-background);
+}
+
+.login_backgrounImage{
+  background-image:url("@/assets/image/login_register/login_background.png")
+}
+
+/* 
+nav a.router-link-exact-active {
+  color: #ff6900;
+} */
+
+.filter-white {
+  filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(212deg)
+    brightness(105%) contrast(103%);
+  margin-left: 1rem;
+}
+.filter-black {
+  filter: invert(100%) sepia(100%) saturate(100%) hue-rotate(212deg)
+    brightness(100%) contrast(120%);
+}
+
+
+
+
+body {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+* {
+  font-family: sans-serif;
+}
+
+a {
+  text-decoration: none;
+}
+button:hover {
+  cursor: pointer;
+}
