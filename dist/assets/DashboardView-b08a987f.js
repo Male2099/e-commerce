@@ -1,0 +1,1 @@
+import{_ as o,o as e,c as a,a as s}from"./index-6513cb84.js";const t={},n=s("h1",null,"This is dashboard",-1),c=s("h1",null,"This is dashboard",-1),d=s("h1",null,"This is dashboard",-1),h=s("h1",null,"This is dashboard1",-1),_=[n,c,d,h];function i(r,l){return e(),a("div",null,_)}const f=o(t,[["render",i]]);export{f as default};
