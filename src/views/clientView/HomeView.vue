@@ -7,6 +7,8 @@ import Welcome_offer from '../../components/Client/Welcome_offer.vue';
 </script>
 
 <template >
-    <Welcome_offer />
-    <Home />
+    <div>
+        <Welcome_offer />
+        <Home />
+    </div>
 </template>

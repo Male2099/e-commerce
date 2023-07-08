@@ -7,7 +7,7 @@ const router = createRouter({
     {
       path: "/rnd",
       name: "rnd",
-      component: ()=>("../components/client/cart/Order_summarize.vue"),
+      component: () => "../components/client/cart/Order_summarize.vue",
     },
     {
       path: "/",
@@ -50,6 +50,30 @@ const router = createRouter({
       //   name:"checkout-step1",
       //   component:()=> import('../components/Client/cart/Customer_Info.vue')
       // }
+    },
+    {
+      path: "/pending",
+      name: "pending",
+      component: () => import("../components/client/authenticted/PendingOrder.vue"),
+
+    },
+    {
+      path: "/profile",
+      name: "profile",
+
+      component: () => import("../components/client/authenticted/Profile.vue"),
+    },
+    {
+      path: "/history",
+      name: "history",
+
+      component: () => import("../components/client/authenticted/History.vue"),
+    },
+    {
+      path: "/dashboard",
+      name: "dashboard",
+
+      component: () => import("../views/adminView/DashboardView.vue"),
     },
   ],
 });

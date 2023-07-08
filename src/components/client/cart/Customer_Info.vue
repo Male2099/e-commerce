@@ -40,9 +40,9 @@ export default {
 
 
 <template>
-    <div class="w-full mb-2 flex border-b font-bold text-[1.25rem]">
+    <div class="w-full mb-2 flex border-b font-bold text-[1.25rem] max-sm:text-[1rem]">
         <div>Cart</div>
-        <div class="w-8 flex items-center justify-center"><img src="../../../assets/image/arrow-left.svg"
+        <div class="w-6 flex items-center justify-center"><img src="../../../assets/image/arrow-left.svg"
                 class="h-4 rotate-180"></div>
         <div> Cutomer Infomation</div>
     </div>

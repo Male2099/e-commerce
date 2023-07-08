@@ -20,12 +20,12 @@ export default {
 
 <template>
     <div class="h-full w-full flex flex-col gap-2">
-        <div class="w-full mb-2 flex border-b font-bold text-[1.25rem]">
+        <div class="w-full mb-2 flex border-b font-bold text-[1.25rem] max-sm:text-[1rem]">
             <div>Cart </div>
-            <div class="w-8 flex items-center justify-center"><img src="../../../assets/image/arrow-left.svg"
+            <div class="w-6 flex items-center justify-center"><img src="../../../assets/image/arrow-left.svg"
                     class="h-4 rotate-180"></div>
             <div> Cutomer Infomation</div>
-            <div class="w-8 flex items-center justify-center"><img src="../../../assets/image/arrow-left.svg"
+            <div class="w-6 flex items-center justify-center"><img src="../../../assets/image/arrow-left.svg"
                     class="h-4 rotate-180"></div>
             <div> PaymentMethod</div>
         </div>
@@ -65,7 +65,7 @@ export default {
                         <div class="w-8 flex items-center justify-center"><img src="../../../assets/image/arrow-left.svg"
                                 class=""></div>
                         <div>
-                            Back to customer information
+                            Back
                         </div>
                     </button>
                     <button type="submit"  @click="$emit('orderHasCompleted')" 

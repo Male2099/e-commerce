@@ -31,9 +31,15 @@ export default {
 </script>
 
 <template>
-    <div class="w-full flex justify-center py-4 px-4">
-        <div v-if="showCompletedOrder == false" class="w-[var(--fixed-width)] p-4 flex gap-12">
-            <section class="w-[65.5%] p-4">
+    <div class="w-[100vw] flex justify-center px-4 max-sm:p-2">
+        <div v-if="showCompletedOrder == false"
+            class="w-[var(--fixed-width)] min-h-[100vh] max-w-full p-4 max-sm:p-0 flex flex-row-reverse max-sm:flex-col max-sm:items-start gap-12">
+            <section class="w-[30.5%] max-sm:w-full bg-[#F4F4F4] p-4 flex flex-col items-center ">
+                <Order_summarize
+                    @checkout_step1="() => { showCustomer_Info = true; showProductList = false; enableCheckout = false }"
+                    :backToCart="enableCheckout" />
+            </section>
+            <section class="w-[65.5%] p-4 max-sm:p-0 max-sm:w-full">
                 <ProductList v-if="showProductList" />
                 <Customer_Info v-if="showCustomer_Info" @checkout_step2="() => {
                     showPaymentMethod = true;
@@ -52,18 +58,15 @@ export default {
                     showProductList = false;
                     showCompletedOrder = true;
                 }" @backToCustomerInfo="() => {
-                    showPaymentMethod = false;
-                    showCustomer_Info = true;
-                    showProductList = false;
-                    showCompletedOrder = false;
+    showPaymentMethod = false;
+    showCustomer_Info = true;
+    showProductList = false;
+    showCompletedOrder = false;
 }" />
             </section>
-            <section class="w-[30.5%] bg-[#F4F4F4] p-4 flex flex-col items-center">
-                <Order_summarize
-                    @checkout_step1="() => { showCustomer_Info = true; showProductList = false; enableCheckout = false }"
-                    :backToCart="enableCheckout" />
-            </section>
         </div>
+
+
         <div v-if="showCompletedOrder == true" class="w-[var(--fixed-width)] p-4 flex gap-12">
             <CompletedOrder />
         </div>

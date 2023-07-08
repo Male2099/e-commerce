@@ -1,42 +1,40 @@
 <template>
-    <!-- <div v-if="open_SingUpModal" -->
-    <div
-        class="h-[100vh] w-[100vw] background-opacity-70percent-black fixed top-0 z-20 flex items-center justify-center">
+    <div class="h-[100vh] w-[100vw] background-opacity-70percent-black fixed top-0 z-20 flex items-center justify-center overflow-hidden">
         <form action="#">
-            <div
-                class="h-[24rem] w-[50rem] flex login_backgrounImage  rounded-[10px] overflow-hidden M-style-on-input relative">
-                <!-- <button @click="() => { open_LoginModal = false; open_SingUpModal = false }" type="button" -->
-                <button type="button"  @click="$emit('onCancel')"
-                    class="absolute top-2 right-3 h-fit w-fit  z-10">
+            <div class="py-2 pb-8 sm:px-8 h-fit flex flex-col login_backgrounImage rounded-[10px] relative overflow-hidden">
+                <button type="button" @click="$emit('onCancel')" class="absolute top-2 right-3 h-fit w-fit z-10">
                     <img src="@/assets/image/XCircle.svg" class="M-cancel-on-hover">
                 </button>
-                <div class="w-[50%] h-full p-6 overflow-hidden flex flex-col gap-4  justify-center items-end ">
-                    <div class="h-[2rem] w-[250px] text[1.4rem] font-bold text-white ">
-                        <strong>Login</strong>
+                <div class="w-full flex items-center justify-center">
+                    <img src="@/assets/image/login_register/Login_img.png" class="w-[20rem]">
+                </div>
+                <div class="flex flex-col gap-4 justify-center items-center">
+                    <div class="w-[250px]">
+                        <input required type="text" placeholder="Email" class="w-full px-3 py-1 text-[1rem] rounded ">
                     </div>
-                    <div class="h-[2.2rem] w-[250px] ">
-                        <input required="false" type="text" placeholder="  Email">
+                    <div class="w-[250px]">
+                        <input required type="password" placeholder="Password" class="w-full px-3 py-1 text-[1rem] rounded ">
                     </div>
-                    <div class="h-[2.2rem] w-[250px] ">
-                        <input required="false" type="password" placeholder="  Password">
-                    </div>
-                    <div class="h-[2.2rem] w-[250px] flex flex-col items-center text-white gap-2">
+                    <div class="w-[250px] flex flex-col items-center text-white gap-2">
                         <button class="px-[1.5rem] py-[3px] rounded-2xl purple_background_color">Login</button>
                         <p>Not yet have an account?
                             <button @click="$emit('openSignUp')">
-                            <!-- <button @click="open_SingUpModal = false"> -->
                                 <strong>Sign Up</strong>
                             </button>
                         </p>
                     </div>
                 </div>
-                <div class="w-[50%] overflow-hidden flex items-center justify-center relative">
-                    <div class="w-[32rem] h-[30rem] absolute flex justify-end items-center">
-                        <img src="@/assets/image/login_register/Login_img.png" class="w-[32rem]">
-                    </div>
-                </div>
-
             </div>
         </form>
     </div>
 </template>
+<style>
+
+.py-2.login_backgrounImage {
+    background-image: url("@/assets/image/login_register/login_background.png");
+    background-size: auto 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: fit-content; 
+}
+</style>
