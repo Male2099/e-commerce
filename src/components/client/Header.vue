@@ -2,11 +2,16 @@
 <script>
 import Login from '@/components/client/auth/Login.vue';
 import SignUp from '@/components/client/auth/SignUp.vue';
+import auth from '../../libs/apis/auth';
+import router from '../../router';
+import logo from '../logo.vue';
+
 
 export default {
     components: {
         Login,
         SignUp,
+        logo
     },
     data() {
         return {
@@ -16,10 +21,17 @@ export default {
             lastName: '',
             email: '',
             password: '',
-            authenticatedUser: true,
+            authenticatedUser: false,
         }
     },
     methods: {
+        async onLogout() {
+            const result = await auth.logout();
+            if (result) {
+                this.authenticatedUser = false;
+                router.push('/')
+            }
+        },
         handleScroll() {
             const header = document.querySelector('header');
             const searchList = document.getElementById('searchlist');
@@ -36,10 +48,18 @@ export default {
         enableScroll_OnCloseModal() {
             document.body.classList.remove('modal-open');
         },
-
     },
+    beforeCreate() {
+        auth.getMe().then(me => {
+            if (me) this.authenticatedUser = true
+            else this.authenticatedUser = false
+        }).catch(e => {
+            console.log(e);
+        });
+    },
+
     watch: {
-        open_LoginModal() {
+        open_LoginModal(newVal) {
             if (this.open_LoginModal) {
                 this.disableScroll_OnOpenModal();
             } else {
@@ -47,7 +67,8 @@ export default {
             }
         }
     },
-    mounted() {
+    async mounted() {
+        // await this.authMe()
         window.addEventListener('scroll', this.handleScroll);
     },
     destroyed() {
@@ -59,19 +80,12 @@ export default {
     <header
         class="relative min-w-full min-h-fit nav-background-linear-gradient flex items-center justify-between shadow-lg gap-4 z-10">
         <div class="flex max-sm:flex-col ">
-            <div class=" w-[15rem] h-[60px] max-sm:h-[50px]">
-                <button @click="authenticatedUser = !authenticatedUser" class="h-full">
-                    <div class="h-full text-[1rem] text-blue-600 flex items-center">
-                        <div>Change state login/guess</div>
-                    </div>
-                </button>
-                <!-- <router-link to="/" class="h-full">
-                    <div class="h-full text-[1.5rem] text-blue-600 font-bold flex items-center">
-                        <div>Name not found</div>
-                    </div>
-                </router-link> -->
+            <div class=" w-[15rem] h-[60px] flex justify-center items-center max-sm:h-[50px] max-sm:justify-start max-sm:pl-1">
+                <router-link to="/" class="w-fit">
+                    <logo />
+                </router-link>
             </div>
-            <nav class="h-full w-[350px] max-sm:py-2 flex justify-between items-center text-white self-center">
+            <nav class="h-full w-[350px] max-sm:py-2 flex justify-between items-center text-white self-center max-sm:justify-evenly">
                 <router-link to="/"><strong>Home</strong></router-link>
                 <router-link to="/menu"><strong>Menu</strong></router-link>
                 <router-link to="/about"><strong>About</strong></router-link>
@@ -104,38 +118,51 @@ export default {
                             <strong class="max-sm:hidden">You</strong>
                         </button>
                         <div class="w-[4.4rem] flex flex-col items-start M-on_hover_profile text-[.8rem]">
-                            <a href="/profile" class="px-2 py-[4px] bg-[#283856] w-full text-white rounded hover:bg-yellow-600">
+                            <router-link to="/me/profile"
+                                class="px-2 py-[4px] bg-[#283856] w-full text-white rounded hover:bg-yellow-600">
                                 Profile
-                            </a>
-                            <a href="/pending" class="px-2 py-[4px] bg-[#283856] w-full text-white rounded hover:bg-yellow-600">
+                            </router-link>
+                            <router-link to="/me/pending"
+                                class="px-2 py-[4px] bg-[#283856] w-full text-white rounded hover:bg-yellow-600">
                                 Pending
-                            </a>
-                            <a href="/history" class="px-2 py-[4px] bg-[#283856] w-full text-white rounded hover:bg-yellow-600">
+                            </router-link>
+                            <router-link to="/me/history"
+                                class="px-2 py-[4px] bg-[#283856] w-full text-white rounded hover:bg-yellow-600">
                                 History
-                            </a>
-                            <button class=" py-[4px] bg-[#283856] w-full text-white rounded hover:bg-yellow-600">
-                                 Logout
+                            </router-link>
+                            <button @click="onLogout()"
+                                class=" py-[4px] bg-[#283856] w-full text-white rounded hover:bg-yellow-600">
+                                Logout
                             </button>
                         </div>
                     </div>
                 </div>
 
-                <router-link to="/cart" class="flex items-center h-fit w-fit">
+                <router-link v-if="authenticatedUser" to="/me/cart" class="flex items-center h-fit w-fit">
                     <button class="px-2 flex items-center gap-1 text-white bg-[#283856] rounded-[4px] max-lg:p-0">
                         <img src="../../assets/image/Cart.svg" alt="" class="h-[1.7rem]  filter-white">
 
                         <strong class="max-sm:hidden">Cart</strong>
                     </button>
                 </router-link>
+                <button v-else @click="open_LoginModal = true" class="flex items-center h-fit w-fit">
+                    <button class="px-2 flex items-center gap-1 text-white bg-[#283856] rounded-[4px] max-lg:p-0">
+                        <img src="../../assets/image/Cart.svg" alt="" class="h-[1.7rem]  filter-white">
+
+                        <strong class="max-sm:hidden">Cart</strong>
+                    </button>
+                </button>
             </div>
         </div>
         <div v-if="open_LoginModal && !authenticatedUser" class="absolute">
             <teleport to="body">
                 <login v-if="!open_SingUpModal" @openSignUp="open_SingUpModal = true"
-                    @onCancel="open_LoginModal = false; open_SingUpModal = false" />
+                    @onCancel="open_LoginModal = false; open_SingUpModal = false"
+                    @loggedIn="authenticatedUser = true; open_LoginModal = false; open_SingUpModal = false" />
 
                 <SignUp v-else @openLogin="open_SingUpModal = false"
-                    @onCancel="open_LoginModal = false; open_SingUpModal = false" />
+                    @onCancel="open_LoginModal = false; open_SingUpModal = false"
+                    @registered="authenticatedUser = true; open_LoginModal = false; open_SingUpModal = false" />
             </teleport>
         </div>
     </header>

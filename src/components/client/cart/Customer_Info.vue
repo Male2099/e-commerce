@@ -3,7 +3,7 @@
 export default {
     data() {
         return {
-            selectedOption: "delivery",
+            selectedOption: "pickup",
             formSubmitted: false,
             quantity: 1,
             address: {
@@ -41,10 +41,13 @@ export default {
 
 <template>
     <div class="w-full mb-2 flex border-b font-bold text-[1.25rem] max-sm:text-[1rem]">
-        <div>Cart</div>
+        <button @click="$emit('backToCart')">Cart</button>
         <div class="w-6 flex items-center justify-center"><img src="../../../assets/image/arrow-left.svg"
                 class="h-4 rotate-180"></div>
-        <div> Cutomer Infomation</div>
+        <div class="text-[var(--menu-active-color)]"> Cutomer Infomation</div>
+        <div class="w-6 flex items-center justify-center"><img src="../../../assets/image/arrow-left.svg"
+                class="h-4 rotate-180"></div>
+        <div> PaymentMethod</div>
     </div>
     <div class="w-full mb-2 font-bold text-[1.25rem]">
         <div>Choose ordering method </div>

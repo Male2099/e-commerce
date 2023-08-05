@@ -5,6 +5,7 @@ import Order_summarize from "@/components/client/cart/Order_summarize.vue"
 import PaymentMethod from "@/components/client/cart/PaymentMethod.vue"
 import CompletedOrder from '@/components/client/cart/CompletedOrder.vue'
 
+import orderApi from '../../libs/apis/orderApi'
 export default {
     components: {
         ProductList,
@@ -14,7 +15,6 @@ export default {
         CompletedOrder,
     },
 
-
     data() {
         return {
             enableCheckout: true,
@@ -22,10 +22,21 @@ export default {
             showCustomer_Info: false,
             showPaymentMethod: false,
             showCompletedOrder: false,
+            order: {},
+            orderDetails: [],
+            reloadPage: false,
         }
     }, methods: {
 
-    }
+    }, async mounted() {
+        const __order = await orderApi.currentOrder()
+        if (!__order) {
+            this.order = await orderApi.currentOrder()
+        } else {
+            this.order = __order;
+        }
+        this.orderDetails = this.order.order_details;
+    },
 }
 
 </script>
@@ -37,10 +48,10 @@ export default {
             <section class="w-[30.5%] max-sm:w-full bg-[#F4F4F4] p-4 flex flex-col items-center ">
                 <Order_summarize
                     @checkout_step1="() => { showCustomer_Info = true; showProductList = false; enableCheckout = false }"
-                    :backToCart="enableCheckout" />
+                    :backToCart="enableCheckout" :reloadPage="reloadPage" />
             </section>
             <section class="w-[65.5%] p-4 max-sm:p-0 max-sm:w-full">
-                <ProductList v-if="showProductList" />
+                <ProductList v-if="showProductList" @reloadPage="reloadPage = !reloadPage" />
                 <Customer_Info v-if="showCustomer_Info" @checkout_step2="() => {
                     showPaymentMethod = true;
                     showCustomer_Info = false;
@@ -62,10 +73,14 @@ export default {
     showCustomer_Info = true;
     showProductList = false;
     showCompletedOrder = false;
+}" @backToCart="() => {
+    showPaymentMethod = false;
+    showCustomer_Info = false;
+    showProductList = true,
+        enableCheckout = true;
 }" />
             </section>
         </div>
-
 
         <div v-if="showCompletedOrder == true" class="w-[var(--fixed-width)] p-4 flex gap-12">
             <CompletedOrder />

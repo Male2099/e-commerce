@@ -1,4 +1,5 @@
 @import "./base.css";
+/* @import "./laoding.css"; */
 :root {
   --menu-active-color: #ff6900;
   --nav-background: linear-gradient(120deg, #fccb90 0%, #d57eeb 100%);
@@ -20,6 +21,10 @@
   --fixed-width: 1176px;
 
   --green-background: #e1a22d;
+
+  --dashboard-background: #0a1727;
+
+  --tr-background-on-hover: orange;
 }
 
 .py-2.login_backgrounImage {
@@ -67,8 +72,6 @@ nav a.router-link-exact-active {
   filter: invert(100%) sepia(100%) saturate(100%) hue-rotate(212deg)
     brightness(100%) contrast(120%);
 }
-
-
 
 body {
   padding: 0;

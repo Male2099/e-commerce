@@ -51,11 +51,11 @@
                     <div class="text-[1.25rem] font-bold text-[var(--menu-active-color)]">
                         Navigation
                     </div>
-                    <a href="#">Home</a>
-                    <a href="#">Menu</a>
-                    <a href="#">Contact</a>
-                    <a href="#">About</a>
-                </div>
+                    <router-link to="/">Home</router-link>
+                    <router-link to="/menu">Menu</router-link>
+                    <router-link to="/contact">Contact</router-link>
+                    <router-link to="/about">About</router-link>
+                    </div>
                 <div class=" max-sm:w-full flex flex-col">
                     <div class="text-[1.25rem] font-bold text-[var(--menu-active-color)]">
                         Follow

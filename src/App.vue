@@ -6,10 +6,9 @@ import Header_ from '@/components/Client/Header.vue'
 
 <template>
     <div id="app">
-        <Header_ />
+        <!-- <Header_ /> -->
         <RouterView/>
-        <Footer_ />
+        <!-- <Footer_ /> -->
     </div>
 </template>
-<style></style>
 

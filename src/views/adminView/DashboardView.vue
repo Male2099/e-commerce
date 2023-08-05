@@ -1,8 +1,10 @@
+<script setup>
+
+</script>
 <template>
-    <div>
-        <h1>This is dashboard</h1>
-        <h1>This is dashboard</h1>
-        <h1>This is dashboard</h1>
-        <h1>This is dashboard1</h1>
+    <div class="w-full min-h-[100vh] flex justify-center">
+        <div class="text-[4rem] h-fit font-bold border-b-[2rem] border-green-600">
+            &lt;&lt;&lt;&lt; Not implemented >>>>
+        </div>
     </div>
 </template>

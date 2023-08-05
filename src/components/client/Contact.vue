@@ -44,7 +44,7 @@
                     </div>
                 </div>
             </section>
-            <section class="w-[50%] flex items-center justify-center max-sm:w-full ">
+            <section class="w-[50%] flex items-center justify-center max-sm:w-full max-sm:hidden">
                 <div class="w-full ">
                     <img class="w-full"
                         src="https://th.bing.com/th/id/R.2cf02d4b5fb0c4ab07e8e89d0c346dfe?rik=eguXH5%2fhbxOivw&pid=ImgRaw&r=0"

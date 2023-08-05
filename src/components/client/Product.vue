@@ -1,28 +1,42 @@
 <script>
+import productApi from '../../libs/apis/productApi'
+import orderApi from '../../libs/apis/orderApi'
+import orderDetailApi from '../../libs/apis/orderDetailApi'
+
+import loading from '../loading.vue'
 export default {
+    components: {
+        loading,
+    },
     data() {
         return {
             quantity: 1,
-
+            product: null,
+            loadAddToCart: false
         }
+    }, methods: {
+        async addToCart() {
+            this.product['quantity'] = this.quantity
+            const res = await orderDetailApi.create({ product_id: this.product.id, quantity: this.quantity });
+            this.loadAddToCart = false
+            if (!res) alert('fail to add product to cart')
+        }
+    },
+    async mounted() {
+        const productId = this.$route.params.id;
+        this.product = await productApi.get(productId)
     }
 }
 </script>
 
 <template>
-    <div class="w-full flex flex-col items-center py-4">
+    <div v-if="product" class="w-full min-h-[90vh] flex flex-col items-center px-4 relative">
         <div class="w-[var(--fixed-width)] max-w-[100vw] p-4 max-sm:p-0 flex max-sm:flex-col gap-4 relative">
-            <!-- <router-link to="/" class="absolute left-0 top-4 max-sm:top-0 flex items-center gap-[2px]">
-                <span>
-                    <img src="../../assets/image/arrow-left.svg" class="h-4" alt="">
-                </span>
-                <span> Back</span>
-            </router-link> -->
             <section class="w-[50%] max-sm:w-full p-4 max-sm:p-0">
                 <div class="w-full overflow-hidden">
-                    <img class="max-w-full" src="@/assets/random-image/donutoffer.png" alt="">
+                    <img class="max-w-full" :src="product.imageUrl" alt="">
                 </div>
-                <div class="h-[5rem] flex items-center gap-4 ">
+                <!-- <div class="h-[5rem] flex items-center gap-4 ">
                     <span class="h-full overflow-hidden">
                         <img class="h-full" src="@/assets/random-image/donutoffer.png" alt="">
                     </span>
@@ -35,53 +49,48 @@ export default {
                     <span class="h-[70%] overflow-hidden">
                         <img class="h-full brightness-75" src="@/assets/random-image/donutoffer.png" alt="">
                     </span>
-                </div>
+                </div> -->
             </section>
             <section class="w-[50%] max-sm:w-full p-4 flex flex-col overflow-auto">
-                <span class="w-fit px-2 rounded purple_background_color text-white">
-                    <strong>30% Discount</strong>
-                </span>
+
                 <div class="text-[2.25rem] max-sm:text-[1.5rem] flex items-center gap-1 font-semibold">
-                    <div class="h-[3.5rem] flex items-center overflow-hidden rounded">
-                        <img class="w-[3.5rem] h-fit object-contain" src="@/assets/random-image/donutoffer.png" alt="">
-                    </div>
-                    <div>Donut12333</div>
+
+                    <div>{{ product.name }}</div>
                 </div>
-                <!-- <div class=" flex gap-2 mb-4">
-                    <span class="h-6 flex items-center">
-                        <img class="h-full" src="@/assets/image/star.svg" alt="">
-                        <img class="h-full" src="@/assets/image/star.svg" alt="">
-                        <img class="h-full" src="@/assets/image/star.svg" alt="">
-                        <img class="h-full" src="@/assets/image/star.svg" alt="">
-                        <img class="h-full" src="@/assets/image/star.svg" alt="">
-                        <span class="ml-1 text-[1.2rem]  text-sm">(10 reviewers)</span>
-                    </span>
-                </div> -->
-                <strong>Description</strong>
+                <div class="flex gap-2 w-fit mb-2 font-bold text-white">
+                    <span class="rounded bg-blue-500 px-1">Sweet</span>
+                    <span class="rounded bg-orange-500 px-1">Salty</span>
+                    <span class="rounded bg-yellow-500 px-1">Delicous</span>
+                    <span class="rounded bg-green-500 px-1">Best</span>
+                </div>
+                <div v-if="product.discount > 0" class="w-fit mb-2 px-2 rounded purple_background_color text-white">
+                    <strong>{{ product.discount }}% Discount</strong>
+                </div>
+                <div>
+                    {{ product.title }}
+                </div>
+                <div class="font-bold">Description</div>
                 <ul class="pl-6 pt-2">
-                    <li class="list-disc">Lorem ipsum dolor sit amet, consectetur adipisicing elit</li>
-                    <li class="list-disc">Lorem ipsum dolor sit amet, consectetur adipisicing elit</li>
-                    <li class="list-disc">Lorem ipsum dolor sit amet, consectetur adipisicing elit</li>
-                    <li class="list-disc">Lorem ipsum dolor sit amet, consectetur adipisicing elit</li>
-                    <li class="list-disc">Lorem ipsum dolor sit amet, consectetur adipisicing elit</li>
+                    <li class="list-disc">{{ product.desc }}</li>
                 </ul>
-                <strong class="mt-2">Ingrediants</strong>
+                <div class="mt-2 font-bold">Ingrediants</div>
                 <ul class="pl-6 pt-2">
-                    <li class="list-disc">salt 100%</li>
-                    <li class="list-disc">salt 100%</li>
-                    <li class="list-disc">salt 100%</li>
+                    <li>{{ product.incrediant }}</li>
                 </ul>
             </section>
         </div>
-        <div
-            class="w-[85%] max-sm:w-full p-1 pl-4 max-sm:p-0 pr-8 flex max-sm:flex-col items-center justify-between border-[1px] max-sm:border-none shadow rounded top-[72vh]">
-            <div class="flex w-[70%] max-sm:w-full justify-between">
+        <div class="w-[85%] max-sm:w-full p-1 pl-4 max-sm:p-0 pr-8 flex max-sm:flex-col items-center justify-between
+                     bg-white z-10 border-[1px] max-sm:border-none shadow rounded 
+                      top-[90vh]">
+
+            <div class="flex w-[70%] max-sm:w-full justify-between items-center">
                 <div class="text-[1.1rem] flex items-center gap-1 font-semibold">
                     <div class="h-[3.5rem] flex items-center overflow-hidden rounded">
-                        <img class="w-[3.5rem] h-fit object-contain" src="@/assets/random-image/donutoffer.png" alt="">
+                        <img class="w-[3.5rem] h-fit object-contain" :src="product.imageUrl" alt="">
                     </div>
-                    <div>Donut12333</div>
+                    <div>{{ product.name }}</div>
                 </div>
+                <div class="mr-[12%] font-bold">{{ product.price }}$</div>
                 <div class=" flex gap-3 items-center">
                     <div class="max-sm:hidden">Quantity</div>
                     <div class="sm:hidden max-sm:static">QTY</div>
@@ -95,11 +104,13 @@ export default {
                         class="px-[.4rem] rounded border-[2px] border-[var(--sky-background)]">+</button>
                 </div>
             </div>
-            <div>
-                <button class="font-bold px-4 py-2 rounded text-white bg-[var(--sky-background)]">ADD TO CART</button>
+            <button v-if="!loadAddToCart" @click="addToCart(); loadAddToCart = true"
+                class="w-[9rem] h-[2.2rem] font-bold px-4 rounded text-white bg-blue-500 hover:text-[var(--menu-active-color)]">ADD
+                TO CART
+            </button>
+            <div v-else class="w-[9rem] h-[2.2rem] relative flex items-center justify-center  bg-blue-500">
+                <loading class="top-[2px]" />
             </div>
         </div>
-
-
     </div>
 </template>
