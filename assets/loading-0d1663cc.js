@@ -1,0 +1,1 @@
+import{_ as s,o,c as _,p as c,h as t,a}from"./index-a6d04a70.js";const n={},d=e=>(c("data-v-e5bf0e31"),e=e(),t(),e),i={class:"relative"},p=d(()=>a("div",{class:"ring"},null,-1)),r=[p];function l(e,f){return o(),_("div",i,r)}const v=s(n,[["render",l],["__scopeId","data-v-e5bf0e31"]]);export{v as l};

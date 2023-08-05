@@ -1,0 +1,1 @@
+import{_ as r,o as e,c as o}from"./index-a6d04a70.js";const s={};function d(c,t){return e(),o("div",null," orders orders orders orders orders orders orders orders orders orders orders orders orders ")}const _=r(s,[["render",d]]);export{_ as default};
